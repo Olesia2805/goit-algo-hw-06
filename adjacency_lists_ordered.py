@@ -1,65 +1,35 @@
+'''
+
+This directed graph is a visualization of the transport network between cities.
+Each city is represented as a vertex, and directed edges between cities show transport routes between them.
+The weight of each edge represents the time it takes to travel between cities, measured in hours.
+
+'''
+
 import networkx as nx
 import matplotlib.pyplot as plt
+import analisis
 
-def draw_graph(graph):
-    G = nx.DiGraph()
-    for node, neighbors in graph.items():
-        for neighbor in neighbors:
-            G.add_edge(node, neighbor)
-    pos = nx.spring_layout(G)  # Позиціонування вершин
-    nx.draw(G, pos, with_labels=True, node_size=500, node_color="skyblue", font_size=5, font_weight="bold")
-    plt.show()
-
+G = nx.DiGraph()
 
 graph = {
-    
-    "Modrice, smycka": ["Modrice, Tyrsova"],
-    "Modrice, Tyrsova": ["Modrice, smycka", "Modricka cihelna"],
-    "Modricka cihelna": ["Modrice, Tyrsova", "Moravanska"],
-    "Moravanska": ["Modricka cihelna", "Moravanske lany"],
-    "Moravanske lany": ["Moravanska", "Orechovska"],
-    "Orechovska": ["Moravanske lany", "Bohunicka"],
-    "Bohunicka": ["Orechovska", "Ustredni hrbitov"],
-    "Ustredni hrbitov": ["Bohunicka", "Hluboka", "Ustredni hrbitov smycka"],
-    
-    "Ustredni hrbitov smycka": ["Ustredni hrbitov"],
-    
-    "Hluboka": ["Ustredni hrbitov", "Celni"],
-    "Celni": ["Hluboka", "Nemocnice Milosrdnych bratri", "Krematorium"],
-    "Nemocnice Milosrdnych bratri": ["Celni", "Porici"],
-    "Porici": ["Nemocnice Milosrdnych bratri", "Mendlovo namesti", "Vaclavska"],
-    "Mendlovo namesti": ["Porici", "Vystaviste", "Nemocnice u sv. Anny"],
-    "Vystaviste": ["Mendlovo namesti", "Lipova"],
-    "Lipova": ["Vystaviste", "Pisarky"],
-    "Pisarky": ["Lipova", "Brafova"],
-    "Brafova": ["Pisarky", "Stranskeho"],
-    "Stranskeho": ["Brafova", "Vozovna Komin"],
-    "Vozovna Komin": ["Stranskeho", "Svratecka", "Komin, smycka", "Rosickeho namesti"],
-    
-    "Komin, smycka": ["Vozovna Komin"],
-
-    "Svratecka": ["Vozovna Komin", "Branka"],
-    "Branka": ["Svratecka", "Podlesi"],
-    "Podlesi": ["Branka", "Kamenolom"],
-    "Kamenolom": ["Podlesi", "Zoologicka zahrada"],
-    "Zoologicka zahrada": ["Kamenolom", "Pristaviste"],
-    "Pristaviste": ["Zoologicka zahrada", "Kubickova", "Rakovecka"],
-    
-    "Rakovecka": ["Pristaviste"],
-    
-    "Kubickova": ["Pristaviste", "Ondrouskova"],
-    "Ondrouskova": ["Kubickova", "Ecerova"],
-    "Ecerova": ["Ondrouskova"],
-    
-    
-    "Stary Liskovec, smycka": ["Dunajska"],
-    "Dunajska": ["Stary Liskovec, smycka", "Osova"],
-    "Osova": ["Dunajska", "Svermova"],
-    "Svermova": ["Osova", "Beloruska"],
-    "Beloruska": ["Svermova", "Krematorium"],
-    "Krematorium": ["Beloruska", "Celni", "Vsetinska"],
-
+    "Odesa_1": [("Lutsk_4", 5), ("Avdiivka_6", 4)],
+    "Irpin_2": [("Lutsk_4", 13),("Irpin_2", 1)],
+    "Mariupol_3": [],
+    "Lutsk_4": [("Avdiivka_6", 7), ("Bakhmut_5", 10), ("Mariupol_3", 8)],
+    "Bakhmut_5": [("Avdiivka_6", 4),("Irpin_2", 7), ("Lutsk_4", 10), ("Mariupol_3", 6)],
+    "Avdiivka_6": [("Odesa_1", 4)]
 }
 
-# Виведення графа
-draw_graph(graph)
+for node, edges in graph.items():
+    for edge, weight in edges:
+        G.add_edge(node, edge, weight=weight)
+
+pos = nx.shell_layout(G)
+nx.draw(G, pos, with_labels=True, node_color="yellow", font_weight="bold", arrows=True, node_size=2000, font_size=6)
+edge_labels = nx.get_edge_attributes(G, 'weight')
+nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+
+analisis.analisis_func(G, "Lutsk_4", "Odesa_1")
+
+plt.show()

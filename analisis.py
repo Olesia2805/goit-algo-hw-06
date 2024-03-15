@@ -16,10 +16,10 @@ def analisis_func(Graph, source = None, target = None):
           '\n\nbetweenness_centrality: ', betweenness_centrality, '\n\npath: ', path)
 
 
-def myDFS ():
+def myDFS():
     pass
 
-def myBFS ():
+def myBFS():
     pass
 
 def myDijkstra():

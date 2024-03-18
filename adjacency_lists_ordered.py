@@ -32,7 +32,7 @@ nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
 
 analisis.analisis_func(G, "Lutsk_4", "Odesa_1")
 analisis.myDFS(G, "Odesa_1")
-analisis.myBFS(G, "")
-analisis.myDijkstra(G, "")
+analisis.myBFS(G, "Odesa_1")
+analisis.myDijkstra(G, "Odesa_1")
 
 plt.show()

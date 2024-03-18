@@ -1,4 +1,5 @@
 import networkx as nx
+import collections
 
 def analisis_func(Graph, source = None, target = None):
     num_nodes = Graph.number_of_nodes()
@@ -17,17 +18,34 @@ def analisis_func(Graph, source = None, target = None):
 
 
 def myDFS(graph, vertex, visited=None):
+
     if visited is None:
         visited = set()
+
     visited.add(vertex)
+
     print(vertex, end=' ')
+    
     for neighbor in graph[vertex]:
         if neighbor not in visited:
             myDFS(graph, neighbor, visited)
 
+def myBFS(graph, start):
 
-def myBFS():
-    pass
+    visited = set()
+    queue = collections.deque([start])
+
+    while queue:
+
+        vertex = queue.popleft()
+        
+        if vertex not in visited:
+            print(vertex, end=' ')
+            visited.add(vertex)
+
+            queue.extend(set(graph[vertex]) - visited)
+
+    return visited
 
 def myDijkstra():
     pass

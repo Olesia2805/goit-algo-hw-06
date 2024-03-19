@@ -33,8 +33,12 @@ edge_labels = nx.get_edge_attributes(G_list, 'weight')
 nx.draw_networkx_edge_labels(G_list, pos, edge_labels=edge_labels)
 
 analisis.analisis_func(G_list, "Poltava_1", "Ivano-Frankivsk_2")
+print("\nDFS: ")
 analisis.myDFS(G_list, "Poltava_1")
+print("\n\nBFS: ")
 analisis.myBFS(G_list, "Poltava_1")
-analisis.myDijkstra(G_list, "Poltava_1")
+
+Dijkstra = analisis.myDijkstra(G_list, "Poltava_1")
+print(f"\n\nDijkstra: {Dijkstra}")
 
 plt.show()

@@ -31,8 +31,12 @@ edge_labels = nx.get_edge_attributes(G, 'weight')
 nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
 
 analisis.analisis_func(G, "Lutsk_4", "Odesa_1")
+print("\nDFS: ")
 analisis.myDFS(G, "Odesa_1")
+print("\n\nBFS: ")
 analisis.myBFS(G, "Odesa_1")
-analisis.myDijkstra(G, "Odesa_1")
+
+Dijkstra = analisis.myDijkstra(G, "Odesa_1")
+print(f"\n\nDijkstra: {Dijkstra}")
 
 plt.show()

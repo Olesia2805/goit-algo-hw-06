@@ -47,5 +47,23 @@ def myBFS(graph, start):
 
     return visited
 
-def myDijkstra():
-    pass
+def myDijkstra(graph, start):
+
+    distances = {vertex: float('inf') for vertex in graph}
+    distances[start] = 0
+    unvisited = list(graph.nodes())
+
+    while unvisited:
+        current = min(unvisited, key=lambda vertex: distances[vertex])
+        unvisited.remove(current)
+
+        for neighbor in graph[current]:
+
+            if neighbor in unvisited:
+                new_distance = distances[current] + graph[current][neighbor]['weight']
+
+                if new_distance < distances[neighbor]:
+                    distances[neighbor] = new_distance
+
+    
+    return distances
